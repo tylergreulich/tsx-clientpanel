@@ -3,7 +3,7 @@ import { IClient } from '../interfaces/client.interface';
 import { IClientErrors } from '../interfaces/clientErrors.interface';
 import { isEmpty } from './is-empty';
 
-export const validateRegister = (data: IClient) => {
+export const validateClient = (data: IClient) => {
   let errors: IClientErrors = {};
 
   data.firstName = !isEmpty(data.firstName) ? data.firstName : '';
