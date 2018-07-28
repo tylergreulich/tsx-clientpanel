@@ -4,7 +4,7 @@ const initialState = {
   data: {}
 };
 
-export default (state = initialState, action) => {
+const dataReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_DATA:
       return {
@@ -16,3 +16,5 @@ export default (state = initialState, action) => {
       return state;
   }
 };
+
+export default dataReducer;

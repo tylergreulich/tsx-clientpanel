@@ -16,6 +16,14 @@ router.get(
   }
 );
 
+router.get(
+  '/',
+  async (req: Request, res: Response): Promise<object> => {
+    const users = await User.find();
+    return res.status(200).json(users);
+  }
+);
+
 router.post(
   '/register',
   async (req: Request, res: Response): Promise<object> => {
