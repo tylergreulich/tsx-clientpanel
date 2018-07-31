@@ -1,6 +1,8 @@
 import { Request, Response, Router } from 'express';
+import * as jwt from 'jsonwebtoken';
 import * as passport from 'passport';
 import Client from '../../models/Client';
+import User from '../../models/User';
 
 import { validateClient } from '../../validation/client';
 
@@ -26,6 +28,7 @@ router.get(
 
 router.post(
   '/',
+  passport.authenticate('jwt', { session: false }),
   async (req: Request, res: Response): Promise<object> => {
     const { errors, isValid } = await validateClient(req.body);
 
@@ -33,12 +36,12 @@ router.post(
 
     const { firstName, lastName, email, phone, balance } = req.body;
 
-    let client = await Client.findOne({ email });
-    if (client) {
-      errors.email = 'Client already exists';
-      return res.status(400).json(errors);
+    let user = await User.findById({ _id: req.user.id });
+
+    if (!user) {
+      return res.status(400).json({ err: 'No user found with that ID' });
     } else {
-      const newClient = new Client({
+      const client = new Client({
         firstName,
         lastName,
         email,
@@ -47,18 +50,21 @@ router.post(
       });
 
       try {
-        newClient.save();
+        client.save();
+        user.clients.unshift({ client });
+        user.save();
       } catch (error) {
         throw error;
       }
 
-      res.status(200).json(newClient);
+      res.status(200).json(user);
     }
   }
 );
 
 router.put(
   '/:id',
+  passport.authenticate('jwt', { session: false }),
   async (req: Request, res: Response): Promise<object> => {
     const { errors, isValid } = await validateClient(req.body);
 
@@ -85,19 +91,7 @@ router.put(
       { new: true }
     );
 
-    res.send(400).json(updatedClient);
-  }
-);
-
-router.delete(
-  '/:id',
-  async (req: Request, res: Response): Promise<object> => {
-    const client = await Client.findByIdAndRemove(req.params.id);
-
-    if (!client)
-      return res.status(400).json({ client: 'No client found with that ID' });
-
-    res.send(200).json(client);
+    await res.status(400).json(updatedClient);
   }
 );
 

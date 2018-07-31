@@ -3,6 +3,6 @@ import dataReducer from './dataReducer';
 import errorReducer from './errorReducer';
 
 export default combineReducers({
-  data: dataReducer
+  data: dataReducer,
   errors: errorReducer
 });

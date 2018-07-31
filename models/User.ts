@@ -25,7 +25,15 @@ const UserSchema: Schema = new Schema({
   date: {
     type: Date,
     default: Date.now
-  }
+  },
+  clients: [
+    {
+      client: {
+        type: Schema.Types.ObjectId,
+        ref: 'Client'
+      }
+    }
+  ]
 });
 
 UserSchema.methods.generateAuthToken = (payload: IPayload, res: Response) => {

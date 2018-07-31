@@ -3,9 +3,12 @@ import * as bcrypt from 'bcryptjs';
 import * as jwt from 'jsonwebtoken';
 import * as passport from 'passport';
 import User from '../../models/User';
+import Client from '../../models/Client';
 
 import { validateRegister } from '../../validation/register';
 import { validateLogin } from '../../validation/login';
+
+import { validateClient } from '../../validation/client';
 
 const router = Router();
 
@@ -24,12 +27,25 @@ router.get(
   }
 );
 
+router.get(
+  '/:id',
+  async (req: Request, res: Response): Promise<object> => {
+    const user = await User.findById(req.params.id);
+    if (!user)
+      return res.status(400).json({ user: 'No user found with that ID' });
+    return res.status(200).json(user);
+  }
+);
+
 router.post(
   '/register',
   async (req: Request, res: Response): Promise<object> => {
     const { errors, isValid } = await validateRegister(req.body);
 
-    if (!isValid) return res.status(400).json(errors);
+    if (!isValid) {
+      return res.status(400).json(errors);
+      console.log(errors);
+    }
 
     const { email, username, password, confirmPassword } = req.body;
 
@@ -65,7 +81,10 @@ router.post(
   async (req: Request, res: Response): Promise<object> => {
     const { errors, isValid } = await validateLogin(req.body);
 
-    if (!isValid) return res.status(400).json(errors);
+    if (!isValid) {
+      return res.status(400).json(errors);
+      console.log(errors);
+    }
 
     const { email, password } = req.body;
 
@@ -85,6 +104,42 @@ router.post(
       errors.password = 'Password is incorrect';
       return res.status(400).json(errors);
     }
+  }
+);
+
+// Add Client
+router.put(
+  '/:id/clients',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    const { errors, isValid } = validateClient(req.body);
+    if (!isValid) {
+      return res.status(400).json(errors);
+    }
+
+    const { firstName, lastName, email, phone, balance } = req.body;
+
+    User.findById(req.params.id)
+      .then(user => {
+        Client.findOne({ email }).then(client => {
+          if (client) {
+            return res.status(400).json({ client: 'Client already exists' });
+          } else {
+            const client = new Client({
+              firstName,
+              lastName,
+              email,
+              phone,
+              balance
+            });
+
+            client.save();
+            user.clients.unshift({ client });
+            user.save().then(user => res.json(user));
+          }
+        });
+      })
+      .catch(err => res.status(404).json({ user: 'No user found' }));
   }
 );
 
