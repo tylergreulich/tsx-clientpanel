@@ -31,6 +31,9 @@ const theme = createMuiTheme({
       }
     },
     MuiButton: {
+      root: {
+        fontSize: '1.3rem'
+      },
       containedPrimary: {
         width: '30rem',
         marginTop: '1.2rem',

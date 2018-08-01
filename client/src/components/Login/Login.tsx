@@ -11,6 +11,8 @@ import { FormContainer } from '../StyledComponents/Form/FormContainer';
 
 import { LoginState, LoginProps } from '../../interfaces/Login/login.interface';
 
+import { ComponentWrapper } from '../StyledComponents/ComponentWrapper';
+
 class Login extends React.Component<LoginProps, LoginState> {
   public state: LoginState = {
     email: '',
@@ -57,36 +59,38 @@ class Login extends React.Component<LoginProps, LoginState> {
     const { email, password, errors } = this.state;
 
     return (
-      <FormContainer onSubmit={this.onSubmitHandler}>
-        <Typography variant="display3">Login</Typography>
-        <ThemeWrapper>
-          <TextField
-            error={!!errors!.email}
-            label={errors!.email ? errors!.email : 'Email'}
-            value={email}
-            margin="normal"
-            name="email"
-            onChange={this.onChangeHandler}
-          />
-          <TextField
-            type="password"
-            error={!!errors!.password}
-            label={errors!.password ? errors!.password : 'Password'}
-            value={password}
-            margin="normal"
-            name="password"
-            onChange={this.onChangeHandler}
-          />
-          <Button variant="contained" color="primary" type="submit">
-            Login
-          </Button>
-          <Link to="/register">
+      <ComponentWrapper>
+        <FormContainer onSubmit={this.onSubmitHandler}>
+          <Typography variant="display3">Login</Typography>
+          <ThemeWrapper>
+            <TextField
+              error={!!errors!.email}
+              label={errors!.email ? errors!.email : 'Email'}
+              value={email}
+              margin="normal"
+              name="email"
+              onChange={this.onChangeHandler}
+            />
+            <TextField
+              type="password"
+              error={!!errors!.password}
+              label={errors!.password ? errors!.password : 'Password'}
+              value={password}
+              margin="normal"
+              name="password"
+              onChange={this.onChangeHandler}
+            />
             <Button variant="contained" color="primary" type="submit">
-              Or Signup
+              Login
             </Button>
-          </Link>
-        </ThemeWrapper>
-      </FormContainer>
+            <Link to="/register">
+              <Button variant="contained" color="primary" type="submit">
+                Or Signup
+              </Button>
+            </Link>
+          </ThemeWrapper>
+        </FormContainer>
+      </ComponentWrapper>
     );
   }
 }

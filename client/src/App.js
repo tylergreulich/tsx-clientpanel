@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Router, Route, Switch, Redirect } from 'react-router-dom';
+import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 import Navbar from './components/Navbar/Navbar';
 import Dashboard from './components/Dashboard/Dashboard';
 import Register from './components/Register/Register';
@@ -27,23 +28,19 @@ if (localStorage.jwtToken) {
 }
 
 export default class App extends React.Component {
-  public render() {
+  render() {
     return (
       <Provider store={store}>
         <Router history={history}>
           <div>
             <Navbar />
             <Switch>
-              <Route exact={true} path="/" component={Dashboard} />
-              <Route exact={true} path="/register" component={Register} />
-              <Route exact={true} path="/login" component={Login} />
+              <PrivateRoute exact path="/" component={Dashboard} />
+              <Route exact path="/register" component={Register} />
+              <Route exact path="/login" component={Login} />
+              <Route exact path="/page-not-found" component={PageNotFound} />
               <Route
-                exact={true}
-                path="/page-not-found"
-                component={PageNotFound}
-              />
-              <Route
-                exact={true}
+                exact
                 path="*"
                 render={() => <Redirect to="/page-not-found" />}
               />
