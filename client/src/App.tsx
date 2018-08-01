@@ -11,13 +11,13 @@ import store from './store/store';
 
 import { createBrowserHistory } from 'history';
 const history = createBrowserHistory();
-const jwt_decode = require('jwt-decode');
+import * as jwt_decode from 'jwt-decode';
 import setAuthToken from './utilities/setAuthToken';
 import { setCurrentUser, logoutUser } from './store/actions/authActions';
 
 if (localStorage.jwtToken) {
   setAuthToken(localStorage.jwtToken);
-  const decoded = jwt_decode(localStorage.jwtToken);
+  const decoded: { exp: number } = jwt_decode(localStorage.jwtToken);
   store.dispatch(setCurrentUser(decoded));
   const currentTime = Date.now() / 1000;
   if (decoded.exp < currentTime) {
@@ -26,7 +26,7 @@ if (localStorage.jwtToken) {
   }
 }
 
-class App extends React.Component {
+export default class App extends React.Component {
   public render() {
     return (
       <Provider store={store}>
@@ -54,5 +54,3 @@ class App extends React.Component {
     );
   }
 }
-
-export default App;

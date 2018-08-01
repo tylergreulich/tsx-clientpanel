@@ -1,3 +1,3 @@
-interface Storage {
-  [key: string]: any;
-}
+// interface Storage {
+//   [key: string]: any;
+// }
