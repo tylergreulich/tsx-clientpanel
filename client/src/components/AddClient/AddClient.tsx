@@ -7,28 +7,10 @@ import { addClient } from '../../store/actions/clientActions';
 
 import NumberFormat from './NumberFormat/NumberFormat';
 
-interface AddClientStateProps {
-  open: boolean;
-}
-
-interface AddClientFields extends AddClientStateProps {
-  firstName: string;
-  lastName: string;
-  email: string;
-  balance: string;
-}
-
-interface AddClientFieldErrors {
-  errors?: {
-    [key: string]: AddClientFields;
-  };
-}
-
-interface AddClientProps {
-  addClient: (clientData: object) => void;
-}
-
-type AddClientState = AddClientFields & AddClientFieldErrors;
+import {
+  AddClientProps,
+  AddClientState
+} from '../../interfaces/AddClient/AddClient';
 
 class AddClient extends React.Component<AddClientProps, AddClientState> {
   public state: AddClientState = {
