@@ -6,6 +6,7 @@ import Dashboard from './components/Dashboard/Dashboard';
 import Register from './components/Register/Register';
 import Login from './components/Login/Login';
 import PageNotFound from './components/PageNotFound/PageNotFound';
+import AddClient from './components/AddClient/AddClient';
 
 import { Provider } from 'react-redux';
 import store from './store/store';
@@ -34,17 +35,22 @@ export default class App extends React.Component {
         <Router history={history}>
           <div>
             <Navbar />
+            <Route exact path="/register" component={Register} />
+            <Route exact path="/login" component={Login} />
             <Switch>
               <PrivateRoute exact path="/" component={Dashboard} />
-              <Route exact path="/register" component={Register} />
-              <Route exact path="/login" component={Login} />
-              <Route exact path="/page-not-found" component={PageNotFound} />
-              <Route
-                exact
-                path="*"
-                render={() => <Redirect to="/page-not-found" />}
-              />
             </Switch>
+            <Switch>
+              <PrivateRoute exact path="/add-client" component={AddClient} />
+            </Switch>
+
+
+            <Route exact path="/page-not-found" component={PageNotFound} />
+            {/* <Route
+              exact
+              path="/"
+              render={() => <Redirect to="/page-not-found" />}
+            /> */}
           </div>
         </Router>
       </Provider>

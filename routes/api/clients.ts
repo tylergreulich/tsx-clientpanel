@@ -34,7 +34,7 @@ router.post(
 
     if (!isValid) return res.status(400).json(errors);
 
-    const { firstName, lastName, email, phone, balance } = req.body;
+    const { firstName, lastName, email, balance } = req.body;
 
     let user = await User.findById({ _id: req.user.id });
 
@@ -45,7 +45,6 @@ router.post(
         firstName,
         lastName,
         email,
-        phone,
         balance
       });
 
@@ -75,7 +74,7 @@ router.put(
     if (!client)
       return res.status(400).json({ client: 'No client found with that ID' });
 
-    const { firstName, lastName, email, phone, balance } = req.body;
+    const { firstName, lastName, email, balance } = req.body;
 
     let updatedClient = await Client.findByIdAndUpdate(
       req.params.id,
@@ -84,7 +83,6 @@ router.put(
           firstName,
           lastName,
           email,
-          phone,
           balance
         }
       },

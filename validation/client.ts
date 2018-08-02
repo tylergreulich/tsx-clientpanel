@@ -9,7 +9,6 @@ export const validateClient = (data: IClient) => {
   data.firstName = !isEmpty(data.firstName) ? data.firstName : '';
   data.lastName = !isEmpty(data.lastName) ? data.lastName : '';
   data.email = !isEmpty(data.email) ? data.email : '';
-  data.phone = !isEmpty(data.phone) ? data.phone : '';
   data.balance = !isEmpty(data.balance) ? data.balance : '';
 
   if (Validator.isEmpty(data.firstName)) {
@@ -26,10 +25,6 @@ export const validateClient = (data: IClient) => {
 
   if (Validator.isEmpty(data.email)) {
     errors.email = 'Email field is required';
-  }
-
-  if (Validator.isEmpty(data.phone)) {
-    errors.phone = 'Phone is required';
   }
 
   if (Validator.isEmpty(data.balance)) {

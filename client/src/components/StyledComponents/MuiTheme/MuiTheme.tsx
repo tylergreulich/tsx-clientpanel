@@ -57,6 +57,15 @@ const theme = createMuiTheme({
       display3: {
         fontSize: '5.5rem'
       }
+    },
+    MuiModal: {
+      root: {
+        width: '100%',
+        height: '100vh',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+      }
     }
   }
 });

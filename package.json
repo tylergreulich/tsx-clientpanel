@@ -43,7 +43,7 @@
     "passport-jwt": "^4.0.0",
     "ts-node": "^7.0.0",
     "ts-node-dev": "^1.0.0-pre.26",
-    "typescript": "^2.9.2",
+    "typescript": "2.9.2",
     "validator": "^10.4.0"
   },
   "devDependencies": {

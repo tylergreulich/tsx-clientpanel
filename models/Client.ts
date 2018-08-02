@@ -16,10 +16,6 @@ const ClientSchema: Schema = new Schema({
     required: true,
     lowercase: true
   },
-  phone: {
-    type: String,
-    required: true
-  },
   balance: {
     type: String,
     required: true

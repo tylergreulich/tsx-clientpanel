@@ -16,9 +16,9 @@ interface NavBarProps {
   auth: {
     isAuthenticated: boolean;
   };
-  history: {
-    push: (route: string) => void;
-  };
+  // history: {
+  //   push: (route: string) => void;
+  // };
   logoutUser: () => void;
 }
 
@@ -26,7 +26,7 @@ const navBar = (props: NavBarProps) => {
   const onLogoutHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     props.logoutUser();
-    props.history.push('/login');
+    // props.history.push('/login');
   };
 
   let authButtons;
@@ -72,11 +72,13 @@ const navBar = (props: NavBarProps) => {
               >
                 ClientPanel
               </Typography>
-              <DashboardLink to="/">
-                <Button color="inherit" style={{ fontSize: '1.2rem' }}>
-                  Dashboard
-                </Button>
-              </DashboardLink>
+              {props.auth.isAuthenticated ? (
+                <DashboardLink to="/">
+                  <Button color="inherit" style={{ fontSize: '1.2rem' }}>
+                    Dashboard
+                  </Button>
+                </DashboardLink>
+              ) : null}
             </div>
             <div
               style={{

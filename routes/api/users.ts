@@ -27,16 +27,6 @@ router.get(
   }
 );
 
-router.get(
-  '/:id',
-  async (req: Request, res: Response): Promise<object> => {
-    const user = await User.findById(req.params.id);
-    if (!user)
-      return res.status(400).json({ user: 'No user found with that ID' });
-    return res.status(200).json(user);
-  }
-);
-
 router.post(
   '/register',
   async (req: Request, res: Response): Promise<object> => {
@@ -107,7 +97,7 @@ router.post(
   }
 );
 
-// Add Client
+// Edit Client
 router.put(
   '/:id/clients',
   passport.authenticate('jwt', { session: false }),
@@ -117,7 +107,7 @@ router.put(
       return res.status(400).json(errors);
     }
 
-    const { firstName, lastName, email, phone, balance } = req.body;
+    const { firstName, lastName, email, balance } = req.body;
 
     User.findById(req.params.id)
       .then(user => {
@@ -129,7 +119,6 @@ router.put(
               firstName,
               lastName,
               email,
-              phone,
               balance
             });
 
@@ -143,12 +132,27 @@ router.put(
   }
 );
 
+// GET Clients by User
+router.get('/:id/clients', (req: Request, res: Response) => {
+  User.findById(req.params.id)
+    .populate({
+      path: 'clients.client'
+    })
+    .exec((err, user) => {
+      if (!user) {
+        return res.status(400).json({ user: 'No user found' });
+      } else {
+        return res.status(200).json(user);
+      }
+    });
+});
+
 router.get(
   '/current',
   passport.authenticate('jwt', { session: false }),
   (req: Request, res: Response) => {
-    const { id, name, email } = req.user;
-    res.status(400).json({ id, name, email });
+    const { id, name, email, clients } = req.user;
+    res.status(400).json({ id, name, email, clients });
   }
 );
 
