@@ -10,7 +10,7 @@ import NumberFormat from './NumberFormat/NumberFormat';
 import {
   AddClientProps,
   AddClientState
-} from '../../interfaces/AddClient/AddClient';
+} from '../../interfaces/AddClient/addclient.interface';
 
 class AddClient extends React.Component<AddClientProps, AddClientState> {
   public state: AddClientState = {
