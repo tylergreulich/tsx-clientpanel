@@ -26,13 +26,11 @@ class Login extends React.Component<LoginProps, LoginState> {
     }
   }
 
-  public componentWillReceiveProps(nextProps: any) {
-    if (nextProps.auth.isAuthenticated) {
-      this.props.history.push('/feed');
-    }
-
-    if (nextProps.errors) {
-      this.setState({ errors: nextProps.errors });
+  public componentDidUpdate(prevState: any) {
+    if (prevState.errors !== this.props.errors) {
+      this.setState({ errors: this.props.errors });
+    } else {
+      this.setState({ errors: {} });
     }
   }
 

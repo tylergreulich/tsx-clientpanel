@@ -96,7 +96,7 @@ class AddClient extends React.Component<AddClientProps, AddClientState> {
                 InputProps={{
                   inputComponent: NumberFormat
                 }}
-                error={!!errors!.email}
+                error={!!errors!.balance}
               />
               <Button
                 variant="contained"

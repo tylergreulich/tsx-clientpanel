@@ -1,3 +1,5 @@
+import { History } from 'history';
+
 export interface ClientsProps {
   getClients: (userId: string) => any;
   client: {
@@ -20,4 +22,5 @@ export interface ClientsProps {
       id: string;
     };
   };
+  history: History;
 }

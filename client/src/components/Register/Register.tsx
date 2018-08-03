@@ -27,9 +27,9 @@ class Register extends React.Component<RegisterProps, RegisterState> {
     }
   }
 
-  public componentWillReceiveProps(nextProps: any) {
-    if (nextProps.errors) {
-      this.setState({ errors: nextProps.errors });
+  public componentDidUpdate(prevState: any) {
+    if (prevState.errors !== this.props.errors) {
+      this.setState({ errors: this.props.errors });
     }
   }
 
@@ -103,7 +103,6 @@ class Register extends React.Component<RegisterProps, RegisterState> {
                 name="confirmPassword"
                 onChange={this.onChangeHandler}
               />
-
               <div
                 style={{
                   display: 'flex',

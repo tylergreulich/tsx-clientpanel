@@ -8,6 +8,7 @@ export interface RegisterProps extends RouteComponentProps<any> {
   history: History;
   registerUser: (userData: object, history: History) => void;
   error: boolean | undefined;
+  errors: {};
 }
 
 interface RegisterFields {

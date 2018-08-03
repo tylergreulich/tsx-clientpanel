@@ -1,5 +1,10 @@
 export const GET_DATA = 'GET_DATA';
 export const GET_ERRORS = 'GET_ERRORS';
+export const CLEAR_ERRORS = 'CLEAR_ERRORS';
 export const SET_CURRENT_USER = 'SET_CURRENT_USER';
 export const ADD_CLIENT = 'ADD_CLIENT';
 export const GET_CLIENTS = 'GET_CLIENTS';
+export const GET_CLIENT = 'GET_CLIENT';
+export const DELETE_CLIENT = 'DELETE_CLIENT';
+export const SET_CLIENT_LOADING = 'SET_CLIENT_LOADING';
+export const EDIT_CLIENT = 'EDIT_CLIENT';

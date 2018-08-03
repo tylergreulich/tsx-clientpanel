@@ -7,6 +7,8 @@ import Register from './components/Register/Register';
 import Login from './components/Login/Login';
 import PageNotFound from './components/PageNotFound/PageNotFound';
 import AddClient from './components/AddClient/AddClient';
+import ClientDetails from './components/ClientDetails/ClientDetails';
+import EditClient from './components/EditClient/EditClient';
 
 import { Provider } from 'react-redux';
 import store from './store/store';
@@ -43,8 +45,20 @@ export default class App extends React.Component {
             <Switch>
               <PrivateRoute exact path="/add-client" component={AddClient} />
             </Switch>
-
-
+            <Switch>
+              <PrivateRoute
+                exact
+                path="/client/:id"
+                component={ClientDetails}
+              />
+            </Switch>
+            <Switch>
+              <PrivateRoute
+                exact
+                path="/edit-client/:id"
+                component={EditClient}
+              />
+            </Switch>
             <Route exact path="/page-not-found" component={PageNotFound} />
             {/* <Route
               exact

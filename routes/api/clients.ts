@@ -22,7 +22,7 @@ router.get(
     const client = await Client.findById(req.params.id);
     if (!client)
       return res.status(400).json({ client: 'No client found with that ID' });
-    await res.json(client);
+    return res.json(client);
   }
 );
 
@@ -89,7 +89,30 @@ router.put(
       { new: true }
     );
 
-    await res.status(400).json(updatedClient);
+    return res.status(200).json(updatedClient);
+  }
+);
+
+router.delete(
+  '/:id',
+  passport.authenticate('jwt', { session: false }),
+  (req: Request, res: Response): void => {
+    User.findOne({ user: req.user.id }).then(user => {
+      Client.findById(req.params.id)
+        .then(client => {
+          client.remove().then(() => res.json({ success: true }));
+        })
+        .catch(err => res.status(404).json({ post: 'No post found' }));
+    });
+
+    User.findOne({ username: req.user.username }).then(user => {
+      console.log(user);
+      const removeIndex = user.clients
+        .map(item => item.id.toString())
+        .indexOf(req.user.id);
+      user.clients.splice(removeIndex, 1);
+      user.save();
+    });
   }
 );
 

@@ -8,6 +8,7 @@ export interface LoginProps extends RouteComponentProps<any> {
   };
   loginUser: (userData: object, history: History) => void;
   error: boolean | undefined;
+  errors: {};
 }
 
 interface LoginFields {

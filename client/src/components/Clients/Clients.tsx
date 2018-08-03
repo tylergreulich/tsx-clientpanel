@@ -4,7 +4,7 @@ import { getClients } from '../../store/actions/clientActions';
 import { ClientTable } from '../StyledComponents/Clients/Clients';
 import TableHeading from './TableHeading/TableHeading';
 import { ClientsProps } from '../../interfaces/Clients/clients.interface';
-import { Typography, Button } from '@material-ui/core';
+import { Button, Typography } from '@material-ui/core';
 
 class Clients extends React.Component<ClientsProps, {}> {
   public componentDidMount() {
@@ -12,6 +12,7 @@ class Clients extends React.Component<ClientsProps, {}> {
   }
 
   public render() {
+    console.log(this.props);
     const {
       client: {
         clients: { clients }
@@ -20,7 +21,7 @@ class Clients extends React.Component<ClientsProps, {}> {
 
     let tableDetails;
 
-    if (clients) {
+    if (clients && clients.length >= 1) {
       tableDetails = clients.map((client: any) => (
         <>
           <Typography>{client.client._id}</Typography>
@@ -29,7 +30,13 @@ class Clients extends React.Component<ClientsProps, {}> {
           </Typography>
           <Typography>{client.client.email}</Typography>
           <Typography>{client.client.balance}</Typography>
-          <Button>Details</Button>
+          <Button
+            onClick={() =>
+              this.props.history.push(`/client/${client.client._id}`)
+            }
+          >
+            Details
+          </Button>
         </>
       ));
     } else {
@@ -39,6 +46,9 @@ class Clients extends React.Component<ClientsProps, {}> {
     return (
       <>
         <ClientTable>
+          <Button onClick={() => this.props.history.push('/add-client')}>
+            Add Client
+          </Button>
           <TableHeading style={{ fontSize: '1.2rem' }} />
           {tableDetails}
         </ClientTable>

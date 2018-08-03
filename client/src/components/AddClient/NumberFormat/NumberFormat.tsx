@@ -15,7 +15,7 @@ export default (props: NumberFormatProps) => {
       onValueChange={values => {
         onChange({
           target: {
-            value: values.value
+            defaultValue: values.value
           }
         });
       }}
