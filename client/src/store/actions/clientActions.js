@@ -6,7 +6,9 @@ import {
   EDIT_CLIENT,
   GET_ERRORS,
   CLEAR_ERRORS,
-  SET_CLIENT_LOADING
+  SET_CLIENT_LOADING,
+  CLIENT_WAS_EDITED,
+  RESET_CLIENT_WAS_EDITED
 } from './actionTypes';
 import axios from 'axios';
 
@@ -50,10 +52,19 @@ export const editClient = (clientId, clientData, history) => dispatch => {
     .put(`/api/clients/${clientId}/`, clientData)
     .then(res => {
       dispatch(clearErrors());
+      dispatch(isUpdated());
       history.push(`/client/${clientId}`);
     })
     .catch(err => dispatch({ type: GET_ERRORS, payload: err.response.data }));
 };
+
+export const isUpdated = () => ({
+  type: CLIENT_WAS_EDITED
+});
+
+export const resetIsUpdated = () => ({
+  type: RESET_CLIENT_WAS_EDITED
+});
 
 export const clearErrors = () => {
   return {

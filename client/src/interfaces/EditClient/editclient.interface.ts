@@ -5,6 +5,7 @@ interface EditClientFields {
   lastName: string;
   email: string;
   balance: string;
+  isData?: boolean;
 }
 
 interface EditClientFieldErrors {

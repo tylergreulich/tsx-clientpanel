@@ -23,7 +23,7 @@ class Clients extends React.Component<ClientsProps, {}> {
 
     if (clients && clients.length >= 1) {
       tableDetails = clients.map((client: any) => (
-        <>
+        <React.Fragment key={client.client._id}>
           <Typography>{client.client._id}</Typography>
           <Typography>
             {client.client.firstName} {client.client.lastName}
@@ -34,21 +34,22 @@ class Clients extends React.Component<ClientsProps, {}> {
             onClick={() =>
               this.props.history.push(`/client/${client.client._id}`)
             }
+            style={{ color: '#3f51b5', fontSize: '1.25rem' }}
           >
             Details
           </Button>
-        </>
+        </React.Fragment>
       ));
     } else {
-      tableDetails = null;
+      tableDetails = <div>There is no data</div>;
     }
 
     return (
       <>
         <ClientTable>
-          <Button onClick={() => this.props.history.push('/add-client')}>
+          {/* <Button onClick={() => this.props.history.push('/add-client')}>
             Add Client
-          </Button>
+          </Button> */}
           <TableHeading style={{ fontSize: '1.2rem' }} />
           {tableDetails}
         </ClientTable>

@@ -5,6 +5,7 @@ export interface ClientDetailsProps extends RouteComponentProps<any> {
   history: History;
   getClient: (id: string) => void;
   deleteClient: (id: string, history: History) => void;
+  resetIsUpdated: () => void;
   client: {
     client: {
       _id: string;
@@ -13,5 +14,6 @@ export interface ClientDetailsProps extends RouteComponentProps<any> {
       balance: string;
       email: string;
     };
+    isUpdated: boolean;
   };
 }

@@ -3,13 +3,16 @@ import {
   GET_CLIENTS,
   DELETE_CLIENT,
   GET_CLIENT,
-  SET_CLIENT_LOADING
+  SET_CLIENT_LOADING,
+  CLIENT_WAS_EDITED,
+  RESET_CLIENT_WAS_EDITED
 } from '../actions/actionTypes';
 
 const initialState = {
   clients: [],
   client: {},
-  loading: false
+  loading: false,
+  isUpdated: false
 };
 
 const clientReducer = (state = initialState, action) => {
@@ -37,6 +40,18 @@ const clientReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: true
+      };
+
+    case CLIENT_WAS_EDITED:
+      return {
+        ...state,
+        isUpdated: true
+      };
+
+    case RESET_CLIENT_WAS_EDITED:
+      return {
+        ...state,
+        isUpdated: false
       };
 
     // case DELETE_CLIENT:

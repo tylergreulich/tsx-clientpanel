@@ -20,17 +20,37 @@ class EditClient extends React.Component<EditClientProps, EditClientState> {
     firstName: '',
     lastName: '',
     email: '',
-    balance: '900',
-    errors: {}
+    balance: '',
+    errors: {},
+    isData: false
   };
 
   public componentDidMount() {
     this.props.getClient(this.props.match.params.id);
   }
 
-  public componentDidUpdate(prevProps: any, prevState: any) {
+  public componentDidUpdate(prevState: any) {
     if (prevState.errors !== this.props.errors) {
       this.setState({ errors: this.props.errors });
+    }
+
+    if (!this.state.isData) {
+      this.setState({ isData: true });
+
+      setTimeout(() => {
+        const {
+          client: {
+            client: { firstName, lastName, email, balance }
+          }
+        } = this.props;
+
+        this.setState({
+          firstName,
+          lastName,
+          email,
+          balance
+        });
+      }, 75);
     }
   }
 
@@ -61,18 +81,22 @@ class EditClient extends React.Component<EditClientProps, EditClientState> {
     });
   };
 
-  public changeBalanceHandler = (name: string) => (
+  public changeBalanceHandler = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     this.setState({ balance: event.target.value });
   };
 
+  public onFirstNameHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({ firstName: event.currentTarget.value });
+  };
+
   public render() {
     console.log(this.props);
-    const { errors, balance } = this.state;
+    const { errors, firstName, balance } = this.state;
     const {
       client: {
-        client: { firstName, lastName, email }
+        client: { lastName, email }
       }
     } = this.props;
 
@@ -97,10 +121,10 @@ class EditClient extends React.Component<EditClientProps, EditClientState> {
               <TextField
                 error={!!errors!.firstName}
                 label={errors!.firstName ? errors!.firstName : 'First Name'}
-                defaultValue={firstName}
+                value={firstName}
                 margin="normal"
                 name="firstName"
-                onChange={this.onChangeHandler}
+                onChange={this.onFirstNameHandler}
               />
               <TextField
                 error={!!errors!.lastName}
@@ -121,7 +145,7 @@ class EditClient extends React.Component<EditClientProps, EditClientState> {
               <TextField
                 label={errors!.balance ? errors!.balance : 'Balance'}
                 value={balance}
-                onChange={this.changeBalanceHandler('balance')}
+                onChange={this.changeBalanceHandler}
                 id="formatted-numberformat-input"
                 InputProps={{
                   inputComponent: NumberFormat
