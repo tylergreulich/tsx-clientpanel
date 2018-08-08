@@ -15,7 +15,10 @@ import axios from 'axios';
 export const addClient = clientData => dispatch => {
   axios
     .post('/api/clients/', clientData)
-    .then(res => dispatch({ type: ADD_CLIENT, payload: res.data }))
+    .then(res => {
+      dispatch(clearErrors());
+      dispatch({ type: ADD_CLIENT, payload: res.data });
+    })
     .catch(err => dispatch({ type: GET_ERRORS, payload: err.response.data }));
 };
 

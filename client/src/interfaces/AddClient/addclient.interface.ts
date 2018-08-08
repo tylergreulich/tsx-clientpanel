@@ -1,5 +1,6 @@
 interface AddClientStateProps {
   open: boolean;
+  showSpinner: boolean;
 }
 
 interface AddClientFields extends AddClientStateProps {
@@ -17,6 +18,10 @@ interface AddClientFieldErrors {
 
 export interface AddClientProps {
   addClient: (clientData: object) => void;
+  errors: {};
+  client: {
+    clients: {};
+  };
 }
 
 export type AddClientState = AddClientFields & AddClientFieldErrors;

@@ -6,9 +6,27 @@ import TableHeading from './TableHeading/TableHeading';
 import { ClientsProps } from '../../interfaces/Clients/clients.interface';
 import { Button, Typography } from '@material-ui/core';
 
+import AddClient from '../AddClient/AddClient';
+
 class Clients extends React.Component<ClientsProps, {}> {
   public componentDidMount() {
     this.props.getClients(this.props.auth.user.id);
+  }
+
+  public componentDidUpdate(prevProps: any) {
+    const {
+      client: { clients }
+    } = prevProps;
+
+    if (clients !== undefined && clients.length !== 0) {
+      if (
+        clients.clients &&
+        this.props.client.clients[0] &&
+        clients.clients.length !== this.props.client.clients[0].clients.length
+      ) {
+        this.props.getClients(this.props.auth.user.id);
+      }
+    }
   }
 
   public render() {
@@ -24,7 +42,11 @@ class Clients extends React.Component<ClientsProps, {}> {
     if (clients && clients.length >= 1) {
       tableDetails = clients.map((client: any) => (
         <React.Fragment key={client.client._id}>
-          <Typography>{client.client._id}</Typography>
+          <Typography
+            onClick={() => console.log(this.props.client.clients.clients)}
+          >
+            {client.client._id}
+          </Typography>
           <Typography>
             {client.client.firstName} {client.client.lastName}
           </Typography>
@@ -44,17 +66,16 @@ class Clients extends React.Component<ClientsProps, {}> {
       tableDetails = <div>There is no data</div>;
     }
 
-    return (
-      <>
+    return <>
+        <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+          <AddClient />
+        </div>
+
         <ClientTable>
-          {/* <Button onClick={() => this.props.history.push('/add-client')}>
-            Add Client
-          </Button> */}
-          <TableHeading style={{ fontSize: '1.2rem' }} />
+          <TableHeading />
           {tableDetails}
         </ClientTable>
-      </>
-    );
+      </>;
   }
 }
 

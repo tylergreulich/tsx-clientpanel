@@ -3,7 +3,7 @@ import NumberFormat from 'react-number-format';
 
 interface NumberFormatProps {
   inputRef: () => any;
-  onChange: () => any;
+  onChange: () => void;
 }
 
 export default (props: NumberFormatProps) => {

@@ -15,6 +15,7 @@ import {
 class AddClient extends React.Component<AddClientProps, AddClientState> {
   public state: AddClientState = {
     open: false,
+    showSpinner: false,
     firstName: '',
     lastName: '',
     email: '',
@@ -22,10 +23,28 @@ class AddClient extends React.Component<AddClientProps, AddClientState> {
     errors: {}
   };
 
-  public componentWillReceiveProps(nextProps: any) {
-    if (nextProps.errors) {
-      this.setState({ errors: nextProps.errors });
+  public componentDidUpdate(prevState: any, prevProps: any) {
+    if (prevState.errors !== this.props.errors) {
+      this.setState({ errors: this.props.errors });
     }
+
+    if (prevProps) {
+      console.log(prevProps);
+    }
+
+    // const {
+    //   client: { clients }
+    // } = prevProps;
+
+    // if (clients !== undefined && clients.length !== 0) {
+    //   if (
+    //     clients.clients &&
+    //     this.props.client.clients[0] &&
+    //     clients.clients.length === this.props.client.clients[0].clients.length
+    //   ) {
+    //     this.setState({ open: false, showSpinner: false });
+    //   }
+    // }
   }
 
   public onOpenHandler = () => this.setState({ open: true });
@@ -59,56 +78,71 @@ class AddClient extends React.Component<AddClientProps, AddClientState> {
     };
 
     this.props.addClient(clientData);
+    this.setState({ showSpinner: true });
   };
 
   public render() {
-    const { open, balance, errors } = this.state;
+    const { open, balance, errors, showSpinner } = this.state;
+
+    let addClientModal;
+
+    if (open) {
+      addClientModal = (
+        <Modal open={open} onClose={this.onCloseHandler}>
+          <AddClientForm onSubmit={this.onSubmitHandler}>
+            {!showSpinner ? (
+              <>
+                <TextField
+                  label={errors!.firstName ? errors!.firstName : 'First Name'}
+                  onChange={this.onChangeHandler}
+                  error={!!errors!.firstName}
+                  name="firstName"
+                />
+                <TextField
+                  label={errors!.lastName ? errors!.lastName : 'Last Name'}
+                  onChange={this.onChangeHandler}
+                  error={!!errors!.lastName}
+                  name="lastName"
+                />
+                <TextField
+                  label={errors!.email ? errors!.email : 'Email'}
+                  onChange={this.onChangeHandler}
+                  error={!!errors!.email}
+                  name="email"
+                />
+                <TextField
+                  label={errors!.balance ? errors!.balance : 'Balance'}
+                  value={balance}
+                  onChange={this.changeBalanceHandler('balance')}
+                  id="formatted-numberformat-input"
+                  InputProps={{
+                    inputComponent: NumberFormat
+                  }}
+                  error={!!errors!.balance}
+                />
+                <Button
+                  variant="contained"
+                  color="primary"
+                  style={{ width: '12.5rem' }}
+                  type="submit"
+                >
+                  CREATE
+                </Button>
+              </>
+            ) : (
+              <h1 onClick={() => console.log(this.props)}>Loading!!!!</h1>
+            )}
+          </AddClientForm>
+        </Modal>
+      );
+    } else {
+      addClientModal = null;
+    }
 
     return (
       <>
-        <Button onClick={this.onOpenHandler}>Open Modal</Button>
-        <ThemeWrapper>
-          <Modal open={open} onClose={this.onCloseHandler}>
-            <AddClientForm onSubmit={this.onSubmitHandler}>
-              <TextField
-                label={errors!.firstName ? errors!.firstName : 'First Name'}
-                onChange={this.onChangeHandler}
-                error={!!errors!.firstName}
-                name="firstName"
-              />
-              <TextField
-                label={errors!.lastName ? errors!.lastName : 'Last Name'}
-                onChange={this.onChangeHandler}
-                error={!!errors!.lastName}
-                name="lastName"
-              />
-              <TextField
-                label={errors!.email ? errors!.email : 'Email'}
-                onChange={this.onChangeHandler}
-                error={!!errors!.email}
-                name="email"
-              />
-              <TextField
-                label={errors!.balance ? errors!.balance : 'Balance'}
-                value={balance}
-                onChange={this.changeBalanceHandler('balance')}
-                id="formatted-numberformat-input"
-                InputProps={{
-                  inputComponent: NumberFormat
-                }}
-                error={!!errors!.balance}
-              />
-              <Button
-                variant="contained"
-                color="primary"
-                style={{ width: '12.5rem' }}
-                type="submit"
-              >
-                CREATE
-              </Button>
-            </AddClientForm>
-          </Modal>
-        </ThemeWrapper>
+        <Button onClick={this.onOpenHandler}>Add Client</Button>
+        <ThemeWrapper>{addClientModal}</ThemeWrapper>
       </>
     );
   }
