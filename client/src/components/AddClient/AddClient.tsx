@@ -70,21 +70,17 @@ class AddClient extends React.Component<AddClientProps, AddClientState> {
 
     const { firstName, lastName, email, balance } = this.state;
 
-    const clientData = {
-      firstName,
-      lastName,
-      email,
-      balance
-    };
+    const clientData = { firstName, lastName, email, balance };
 
     this.props.addClient(clientData);
+
     this.setState({ showSpinner: true });
   };
 
   public render() {
     const { open, balance, errors, showSpinner } = this.state;
 
-    let addClientModal;
+    let addClientModal: JSX.Element | null;
 
     if (open) {
       addClientModal = (
@@ -123,10 +119,10 @@ class AddClient extends React.Component<AddClientProps, AddClientState> {
                 <Button
                   variant="contained"
                   color="primary"
-                  style={{ width: '12.5rem' }}
+                  style={{ width: '12.5rem', textTransform: 'uppercase' }}
                   type="submit"
                 >
-                  CREATE
+                  create
                 </Button>
               </>
             ) : (

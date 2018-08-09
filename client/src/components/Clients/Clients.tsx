@@ -42,11 +42,7 @@ class Clients extends React.Component<ClientsProps, {}> {
     if (clients && clients.length >= 1) {
       tableDetails = clients.map((client: any) => (
         <React.Fragment key={client.client._id}>
-          <Typography
-            onClick={() => console.log(this.props.client.clients.clients)}
-          >
-            {client.client._id}
-          </Typography>
+          <Typography>{client.client._id}</Typography>
           <Typography>
             {client.client.firstName} {client.client.lastName}
           </Typography>
@@ -66,16 +62,17 @@ class Clients extends React.Component<ClientsProps, {}> {
       tableDetails = <div>There is no data</div>;
     }
 
-    return <>
+    return (
+      <>
         <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
           <AddClient />
         </div>
-
         <ClientTable>
           <TableHeading />
           {tableDetails}
         </ClientTable>
-      </>;
+      </>
+    );
   }
 }
 
