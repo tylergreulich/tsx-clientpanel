@@ -30,7 +30,6 @@ class Clients extends React.Component<ClientsProps, {}> {
   }
 
   public render() {
-    console.log(this.props);
     const {
       client: {
         clients: { clients }
@@ -59,7 +58,7 @@ class Clients extends React.Component<ClientsProps, {}> {
         </React.Fragment>
       ));
     } else {
-      tableDetails = <div>There is no data</div>;
+      tableDetails = null;
     }
 
     return (

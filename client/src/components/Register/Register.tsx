@@ -38,12 +38,7 @@ class Register extends React.Component<RegisterProps, RegisterState> {
 
     const { username, email, password, confirmPassword } = this.state;
 
-    const userData = {
-      username,
-      email,
-      password,
-      confirmPassword
-    };
+    const userData = { username, email, password, confirmPassword };
 
     this.props.registerUser(userData, this.props.history);
   };
@@ -58,6 +53,8 @@ class Register extends React.Component<RegisterProps, RegisterState> {
 
   public render() {
     const { username, email, password, confirmPassword, errors } = this.state;
+
+    // aede6e36bae120bf34c4c50193991f5b;
 
     return (
       <>
