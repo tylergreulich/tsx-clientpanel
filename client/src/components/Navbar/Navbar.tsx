@@ -12,15 +12,7 @@ import {
 import { connect } from 'react-redux';
 import { logoutUser } from '../../store/actions/authActions';
 
-interface NavBarProps {
-  auth: {
-    isAuthenticated: boolean;
-  };
-  // history: {
-  //   push: (route: string) => void;
-  // };
-  logoutUser: () => void;
-}
+import { NavBarProps } from '../../interfaces/Navbar/navbar.interface';
 
 const navBar = (props: NavBarProps) => {
   const onLogoutHandler = (event: React.MouseEvent<HTMLButtonElement>) => {

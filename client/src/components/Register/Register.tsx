@@ -142,3 +142,5 @@ export default connect(
   mapStateToProps,
   { registerUser }
 )(withRouter(Register));
+
+
