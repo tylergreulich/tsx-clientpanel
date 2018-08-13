@@ -2,10 +2,11 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { editClient, getClient } from '../../store/actions/clientActions';
 
-import { Typography, TextField, Button } from '@material-ui/core';
+import { Typography, TextField } from '@material-ui/core';
 
 import { ComponentWrapper } from '../StyledComponents/ComponentWrapper';
 import { FormContainer } from '../StyledComponents/Form/FormContainer';
+import { FormButton } from '../StyledComponents/Buttons/Buttons';
 import ThemeWrapper from '../StyledComponents/MuiTheme/MuiTheme';
 
 import NumberFormat from '../AddClient/NumberFormat/NumberFormat';
@@ -152,9 +153,9 @@ class EditClient extends React.Component<EditClientProps, EditClientState> {
                 }}
                 error={!!errors!.balance}
               />
-              <Button variant="contained" color="primary" type="submit">
+              <FormButton variant="contained" color="primary" uppercase={true}>
                 Submit
-              </Button>
+              </FormButton>
             </ThemeWrapper>
           </FormContainer>
         </ComponentWrapper>

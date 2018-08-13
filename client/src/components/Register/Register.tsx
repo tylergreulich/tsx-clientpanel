@@ -3,8 +3,9 @@ import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { registerUser } from '../../store/actions/authActions';
 import ThemeWrapper from '../StyledComponents/MuiTheme/MuiTheme';
-import { TextField, Typography, Button } from '@material-ui/core';
+import { TextField, Typography } from '@material-ui/core';
 import { FormContainer } from '../StyledComponents/Form/FormContainer';
+import { FormButton } from '../StyledComponents/Buttons/Buttons';
 import {
   RegisterState,
   RegisterProps
@@ -107,22 +108,13 @@ class Register extends React.Component<RegisterProps, RegisterState> {
                   width: '30rem'
                 }}
               >
-                <Button
-                  variant="contained"
-                  color="primary"
-                  style={{ width: '12.5rem' }}
-                  type="submit"
-                >
+                <FormButton variant="contained" color="primary" wide={true}>
                   Sign Up
-                </Button>
+                </FormButton>
                 <Link to="/login">
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    style={{ width: '12.5rem' }}
-                  >
+                  <FormButton variant="contained" color="primary" wide={true}>
                     Or Login
-                  </Button>
+                  </FormButton>
                 </Link>
               </div>
             </ThemeWrapper>
@@ -142,5 +134,3 @@ export default connect(
   mapStateToProps,
   { registerUser }
 )(withRouter(Register));
-
-

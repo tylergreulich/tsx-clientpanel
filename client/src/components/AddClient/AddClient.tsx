@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Modal, Button, TextField } from '@material-ui/core';
 import ThemeWrapper from '../StyledComponents/MuiTheme/MuiTheme';
 import { AddClientForm } from '../StyledComponents/Form/AddClientForm/AddClientForm';
+import { FormButton } from '../StyledComponents/Buttons/Buttons';
 import { connect } from 'react-redux';
 import { addClient } from '../../store/actions/clientActions';
 
@@ -116,14 +117,14 @@ class AddClient extends React.Component<AddClientProps, AddClientState> {
                   }}
                   error={!!errors!.balance}
                 />
-                <Button
+                <FormButton
                   variant="contained"
                   color="primary"
-                  style={{ width: '12.5rem', textTransform: 'uppercase' }}
-                  type="submit"
+                  wide={true}
+                  uppercase={true}
                 >
                   create
-                </Button>
+                </FormButton>
               </>
             ) : (
               <h1 onClick={() => console.log(this.props)}>Loading!!!!</h1>

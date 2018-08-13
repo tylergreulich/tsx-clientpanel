@@ -4,10 +4,12 @@ import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { loginUser } from '../../store/actions/authActions';
 
-import { TextField, Typography, Button } from '@material-ui/core';
+import { TextField, Typography } from '@material-ui/core';
 
 import ThemeWrapper from '../StyledComponents/MuiTheme/MuiTheme';
 import { FormContainer } from '../StyledComponents/Form/FormContainer';
+
+import { FormButton } from '../StyledComponents/Buttons/Buttons';
 
 import { LoginState, LoginProps } from '../../interfaces/Login/login.interface';
 
@@ -76,13 +78,13 @@ class Login extends React.Component<LoginProps, LoginState> {
               name="password"
               onChange={this.onChangeHandler}
             />
-            <Button variant="contained" color="primary" type="submit">
+            <FormButton variant="contained" color="primary">
               Login
-            </Button>
+            </FormButton>
             <Link to="/register">
-              <Button variant="contained" color="primary" type="submit">
+              <FormButton variant="contained" color="primary">
                 Or Signup
-              </Button>
+              </FormButton>
             </Link>
           </ThemeWrapper>
         </FormContainer>
